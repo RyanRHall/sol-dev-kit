@@ -8,3 +8,28 @@ devenv.local.yaml
 
 # pre-commit
 .pre-commit-config.yaml
+
+# Soldeer dependencies
+dependencies/
+
+# Node dependencies
+node_modules/
+
+# Compiler files
+cache/
+out/
+
+# Forge broadcast logs
+/broadcast
+
+# env files
+.env
+
+# macOS files
+.DS_Store
+
+# coverage report
+lcov.info
+
+# editor files
+.vscode/
