@@ -1,4 +1,4 @@
-name: CI
+name: Foundry
 
 permissions: {}
 
@@ -6,7 +6,7 @@ on: pull_request
 
 jobs:
   check:
-    name: Foundry Test
+    name: Coverage
     runs-on: ubuntu-latest
     permissions:
       contents: read
