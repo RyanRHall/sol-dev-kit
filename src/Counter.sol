@@ -14,10 +14,6 @@ contract Counter {
         number = newNumber;
     }
 
-    function withdraw() public {
-        payable(msg.sender).transfer(address(this).balance);
-    }
-
     /// @notice Increments the counter by one.
     function increment() public {
         ++number;

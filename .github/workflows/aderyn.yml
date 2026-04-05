@@ -1,10 +1,10 @@
-name: Aderyn
+name: Static Analysis
 
 on: pull_request
 
 jobs:
   check:
-    name: Analyze
+    name: Aderyn
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v6

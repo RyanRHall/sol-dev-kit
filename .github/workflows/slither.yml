@@ -1,12 +1,10 @@
-name: Slither
-
-permissions: {}
+name: Static Analysis
 
 on: pull_request
 
 jobs:
   check:
-    name: Analyze
+    name: Slither
     runs-on: ubuntu-latest
     permissions:
       contents: read
