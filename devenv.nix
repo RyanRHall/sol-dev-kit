@@ -11,6 +11,7 @@
     pkgs.lintspec
     pkgs.bun
     pkgs.slither-analyzer
+    pkgs.echidna
   ];
 
   # https://devenv.sh/languages/
