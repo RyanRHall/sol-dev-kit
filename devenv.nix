@@ -5,7 +5,7 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git pkgs.lcov ];
+  packages = [ pkgs.git pkgs.lcov pkgs.lintspec ];
 
   # https://devenv.sh/languages/
   languages.solidity.enable = true;
