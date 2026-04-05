@@ -17,6 +17,9 @@
   languages.solidity.enable = true;
   languages.solidity.foundry.enable = true;
 
+  languages.python.enable = true;
+  languages.python.venv.enable = true;
+
   # https://devenv.sh/scripts/
   scripts.solhint.exec = ''
     bun solhint
@@ -24,6 +27,7 @@
 
   enterShell = ''
     bun install
+    pip install --user git+https://github.com/RareSkills/vertigo-rs.git -q
   '';
 
   # These tests should match the CI workflows
