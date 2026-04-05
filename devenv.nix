@@ -5,39 +5,46 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [
+    pkgs.git
+    pkgs.lcov
+    pkgs.lintspec
+    pkgs.bun
+    pkgs.slither-analyzer
+  ];
 
   # https://devenv.sh/languages/
   languages.solidity.enable = true;
   languages.solidity.foundry.enable = true;
 
-  # https://devenv.sh/processes/
-  # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
-
-  # https://devenv.sh/services/
-  # services.postgres.enable = true;
-
   # https://devenv.sh/scripts/
-  scripts.hello.exec = ''
-    echo hello from $GREET
+  scripts.solhint.exec = ''
+    bun solhint
   '';
 
-  # https://devenv.sh/basics/
   enterShell = ''
-    hello         # Run scripts directly
-    git --version # Use packages
+    bun install
   '';
 
-  # https://devenv.sh/tasks/
-  # tasks = {
-  #   "myproj:setup".exec = "mytool build";
-  #   "devenv:enterShell".after = [ "myproj:setup" ];
-  # };
-
-  # https://devenv.sh/tests/
+  # These tests should match the CI workflows
   enterTest = ''
-    echo "Running tests"
-    git --version | grep --color=auto "${pkgs.git.version}"
+    echo "Running Foundry Tests"
+    forge test -v
+
+    echo "Checking Format"
+    forge fmt --check
+
+    echo "Running Foundry Linter"
+    forge lint
+
+    echo "Running Solhint"
+    bun solhint 'src/**/*.sol'
+
+    echo "Running Lintspec"
+    lintspec
+
+    echo "Running Slither"
+    slither .
   '';
 
   # https://devenv.sh/git-hooks/
