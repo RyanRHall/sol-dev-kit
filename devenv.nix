@@ -20,6 +20,9 @@
 
   languages.python.enable = true;
   languages.python.venv.enable = true;
+  languages.python.venv.requirements = ''
+    halmos
+  '';
 
   # https://devenv.sh/scripts/
   scripts.solhint.exec = ''
@@ -28,7 +31,7 @@
 
   enterShell = ''
     bun install
-    pip install --user git+https://github.com/RareSkills/vertigo-rs.git -q
+    pip install git+https://github.com/RareSkills/vertigo-rs.git -q
   '';
 
   # These tests should match the CI workflows
