@@ -1,10 +1,10 @@
-name: Lint
+name: Test
 
 on: pull_request
 
 jobs:
   check:
-    name: Solhint
+    name: Echidna Fuzz
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,5 +27,11 @@ jobs:
           eval "$(devenv print-dev-env)"
           echo "PATH=$PATH" >> "$GITHUB_ENV"
 
-      - name: Run Solhint
-        run: bun solhint 'src/**/*.sol'
+      - name: Install dependencies
+        run: forge soldeer install
+
+      - name: Compile Contracts
+        run: forge compile
+
+      - name: Run Echidna
+        run: echidna echidna/CounterEchidna.sol --contract CounterEchidna --config echidna.yaml

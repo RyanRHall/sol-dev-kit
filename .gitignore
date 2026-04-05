@@ -31,5 +31,9 @@ out/
 # coverage report
 lcov.info
 
+# Echidna
+echidna-corpus/
+crytic-export/
+
 # editor files
 .vscode/
