@@ -1,12 +1,10 @@
-name: Foundry
-
-permissions: {}
+name: Test
 
 on: pull_request
 
 jobs:
   check:
-    name: Test
+    name: Foundry Test
     runs-on: ubuntu-latest
     permissions:
       contents: read

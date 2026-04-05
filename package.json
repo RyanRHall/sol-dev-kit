@@ -1,6 +1,7 @@
 {
   "private": true,
-  "devDependencies": {
+  "dependencies": {
+    "@cyfrin/aderyn": "^0.6.8",
     "solhint": "^6.2.0"
   }
 }

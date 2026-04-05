@@ -1,12 +1,10 @@
-name: Solhint
-
-permissions: {}
+name: Lint
 
 on: pull_request
 
 jobs:
   check:
-    name: Lint
+    name: Solhint
     runs-on: ubuntu-latest
     permissions:
       contents: read
