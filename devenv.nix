@@ -5,7 +5,7 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git pkgs.lcov pkgs.lintspec ];
+  packages = [ pkgs.git pkgs.lcov pkgs.lintspec pkgs.bun ];
 
   # https://devenv.sh/languages/
   languages.solidity.enable = true;
@@ -22,10 +22,13 @@
     echo hello from $GREET
   '';
 
+  scripts.lint.exec = ''
+    bun solhint 'src/**/*.sol'
+  '';
+
   # https://devenv.sh/basics/
   enterShell = ''
-    hello         # Run scripts directly
-    git --version # Use packages
+    bun install
   '';
 
   # https://devenv.sh/tasks/
