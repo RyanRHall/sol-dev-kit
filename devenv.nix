@@ -5,7 +5,7 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git pkgs.lcov pkgs.lintspec pkgs.bun ];
+  packages = [ pkgs.git pkgs.lcov pkgs.lintspec pkgs.bun pkgs.slither-analyzer ];
 
   # https://devenv.sh/languages/
   languages.solidity.enable = true;
@@ -18,10 +18,6 @@
   # services.postgres.enable = true;
 
   # https://devenv.sh/scripts/
-  scripts.hello.exec = ''
-    echo hello from $GREET
-  '';
-
   scripts.lint.exec = ''
     bun solhint 'src/**/*.sol'
   '';
