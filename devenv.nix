@@ -28,7 +28,7 @@
 
   enterShell = ''
     bun install
-    pip install --user git+https://github.com/RareSkills/vertigo-rs.git -q
+    pip install --user -r requirements.txt -q
   '';
 
   # These tests should match the CI workflows

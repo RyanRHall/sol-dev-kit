@@ -4,5 +4,8 @@ out = "out"
 libs = ["dependencies"]
 ast = true
 
+[profile.halmos]
+test = "halmos"
+
 [dependencies]
 forge-std = "1.15.0"

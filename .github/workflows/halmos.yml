@@ -4,7 +4,7 @@ on: pull_request
 
 jobs:
   check:
-    name: Echidna Fuzz
+    name: Halmos
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,8 +30,5 @@ jobs:
       - name: Install dependencies
         run: forge soldeer install
 
-      - name: Compile Contracts
-        run: forge compile
-
-      - name: Run Echidna
-        run: echidna echidna/CounterEchidna.t.sol --contract CounterEchidna --config echidna.yaml
+      - name: Run Halmos
+        run: FOUNDRY_PROFILE=halmos halmos
