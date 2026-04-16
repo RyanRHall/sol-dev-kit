@@ -3,9 +3,11 @@ src = "src"
 out = "out"
 libs = ["dependencies"]
 ast = true
+solc = "0.8.30"
 
 [profile.halmos]
 test = "halmos"
 
 [dependencies]
 forge-std = "1.15.0"
+"@openzeppelin-contracts" = "5.6.1"
