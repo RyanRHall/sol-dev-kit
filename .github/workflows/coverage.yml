@@ -29,6 +29,10 @@ jobs:
       - name: Install dependencies
         run: forge soldeer install
 
+      - name: Install lcov
+        shell: bash
+        run: sudo apt-get install -y lcov
+
       - name: Generate coverage report
         run: forge coverage -v --no-match-coverage "(script|test|mocks)" --report lcov
         id: coverage

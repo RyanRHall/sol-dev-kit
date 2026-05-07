@@ -3,7 +3,6 @@
 {
   packages = [
     pkgs.git
-    pkgs.lcov
     pkgs.lintspec
     pkgs.slither-analyzer
     pkgs.echidna
