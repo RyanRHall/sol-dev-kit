@@ -1,5 +1,5 @@
 @openzeppelin-contracts/=dependencies/@openzeppelin-contracts-5.6.1/
-forge-std/=dependencies/forge-std-1.15.0/src/
-
 @src/=src/
 @test/=test/
+forge-std/=dependencies/forge-std-1.15.0/src/
+halmos-cheatcodes/=dependencies/a16z-halmos-cheatcodes-6da4e692c357ba6d641a2e677a28298cac9f76ab/src/
