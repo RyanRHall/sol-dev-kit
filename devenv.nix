@@ -11,6 +11,7 @@
   languages.solidity.enable = true;
   languages.solidity.foundry.enable = true;
 
+  languages.javascript.enable = true;
   languages.javascript.bun.enable = true;
   languages.javascript.bun.install.enable = true;
 
