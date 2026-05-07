@@ -10,3 +10,23 @@ Built on [nix](https://nixos.org/) and [devenv](https://devenv.sh/), this repo h
 * [Aderyn](https://github.com/Cyfrin/aderyn) - more static analysis
 * [Halmos](https://github.com/a16z/halmos) - symbolic testing
 * [Vertigo](https://github.com/RareSkills/vertigo-rs) - mutation testing
+
+# Testing
+
+### Unit Tests
+
+```bash
+forge test
+```
+
+### Echidna
+
+```bash
+echidna test/echidna/PredictionMarket.echidna.sol --contract PredictionMarketFuzz --config echidna.yaml
+```
+
+### Halmos
+
+```bash
+halmos
+```

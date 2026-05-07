@@ -34,4 +34,4 @@ jobs:
         run: forge compile
 
       - name: Run Echidna
-        run: echidna echidna/CounterEchidna.t.sol --contract CounterEchidna --config echidna.yaml
+        run: echidna test/echidna/PredictionMarket.echidna.sol --contract PredictionMarketFuzz --config echidna.yaml --format text
