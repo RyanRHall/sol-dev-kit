@@ -14,19 +14,26 @@ Built on [nix](https://nixos.org/) and [devenv](https://devenv.sh/), this repo h
 # Testing
 
 ### Unit Tests
-
 ```bash
 forge test
 ```
 
-### Echidna
+### Aderyn
+```bash
+bun aderyn
+```
 
+### Slither
+```bash
+slither .
+```
+
+### Echidna
 ```bash
 echidna test/echidna/PredictionMarket.echidna.sol --contract PredictionMarketFuzz --config echidna.yaml
 ```
 
 ### Halmos
-
 ```bash
-halmos
+FOUNDRY_PROFILE=halmos halmos
 ```
