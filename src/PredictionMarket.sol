@@ -166,12 +166,10 @@ contract PredictionMarket is ERC1155, Ownable {
         require(market.winningID == 0, "market closed");
         require(amountIn > 0, "zero in");
 
-        bool isYesIn;
+        bool isYesIn = false;
         if (tokenInID == market.yesID) {
             isYesIn = true;
-        } else if (tokenInID == market.noID) {
-            isYesIn = false;
-        } else {
+        } else if (tokenInID != market.noID) {
             revert("invalid token");
         }
 
@@ -183,8 +181,7 @@ contract PredictionMarket is ERC1155, Ownable {
         require(reserveIn > 0 && reserveOut > 0, "no liquidity");
 
         // --- fee (0.3%) ---
-        uint256 amountInWithFee = amountIn * 997 / 1000;
-        uint256 amountOut = (reserveOut * amountInWithFee) / (reserveIn + amountInWithFee);
+        uint256 amountOut = (reserveOut * amountIn * 997) / ((reserveIn + amountIn) * 1000);
 
         require(amountOut < reserveOut, "insufficient liquidity");
 
