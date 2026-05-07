@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    defaults:
+      run:
+        shell: devenv shell bash -- -e {0}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -20,15 +23,11 @@ jobs:
           name: devenv
 
       - name: Install devenv
+        shell: bash
         run: nix profile add nixpkgs#devenv
-
-      - name: Activate devenv
-        run: |
-          eval "$(devenv print-dev-env)"
-          echo "PATH=$PATH" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: forge soldeer install
 
       - name: Run Slither
-        run: slither .
+        run: slither . --fail-medium

@@ -1,12 +1,13 @@
 [profile.default]
 src = "src"
 out = "out"
+test = "test/unit"
 libs = ["dependencies"]
 ast = true
 solc = "0.8.30"
 
 [profile.halmos]
-test = "halmos"
+test = "test/halmos"
 
 [dependencies]
 forge-std = "1.15.0"

@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    defaults:
+      run:
+        shell: devenv shell bash -- -e {0}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -20,15 +23,15 @@ jobs:
           name: devenv
 
       - name: Install devenv
+        shell: bash
         run: nix profile add nixpkgs#devenv
-
-      - name: Activate devenv
-        run: |
-          eval "$(devenv print-dev-env)"
-          echo "PATH=$PATH" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: forge soldeer install
+
+      - name: Install lcov
+        shell: bash
+        run: sudo apt-get install -y lcov
 
       - name: Generate coverage report
         run: forge coverage -v --no-match-coverage "(script|test|mocks)" --report lcov
