@@ -28,7 +28,7 @@
 
   enterShell = ''
     bun install
-    pip install --user -r requirements.txt -q
+    pip install -r requirements.txt -q
   '';
 
   # These tests should match the CI workflows
