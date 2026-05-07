@@ -28,6 +28,11 @@ bun aderyn
 slither .
 ```
 
+### Solhint
+```bash
+solhint 'src/**/*.sol'
+```
+
 ### Echidna
 ```bash
 echidna test/echidna/PredictionMarket.echidna.sol --contract PredictionMarketFuzz --config echidna.yaml

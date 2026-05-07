@@ -17,8 +17,4 @@
   languages.python.enable = true;
   languages.python.venv.enable = true;
   languages.python.venv.requirements = ./requirements.txt;
-
-  scripts.solhint.exec = ''
-    bun solhint
-  '';
 }
