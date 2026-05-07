@@ -6,6 +6,13 @@ checksum = "a3b6bc661be858c7c27f60a1708cbebe8c71034b4cc1e9fe270d0a05b069352f"
 integrity = "bce03af7ada1eee21a7fff393f238bcd7cd75a022a4db55ffb6b0dbb32433d35"
 
 [[dependencies]]
+name = "a16z-halmos-cheatcodes"
+version = "6da4e692c357ba6d641a2e677a28298cac9f76ab"
+url = "https://soldeer-revisions.s3.amazonaws.com/a16z-halmos-cheatcodes/6da4e692c357ba6d641a2e677a28298cac9f76ab_02-07-2025_18:39:48_a16z-halmos-cheatcodes-6da4e692c357ba6d641a2e677a28298cac9f76ab.zip"
+checksum = "fb56679a5402ee037849e05f1e6d9aec64096d5c0e41e84c5c8d447123dfcb5f"
+integrity = "d61b6628a05317095546185bf5bd4037050fc2a9c7db23c54cc398a618266ea4"
+
+[[dependencies]]
 name = "forge-std"
 version = "1.15.0"
 url = "https://soldeer-revisions.s3.amazonaws.com/forge-std/1_15_0_27-02-2026_08:26:17_forge-std-1.15.zip"
