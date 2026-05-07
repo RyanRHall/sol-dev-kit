@@ -20,6 +20,7 @@
 
   languages.python.enable = true;
   languages.python.venv.enable = true;
+  languages.python.venv.requirements = ./requirements.txt;
 
   # https://devenv.sh/scripts/
   scripts.solhint.exec = ''
@@ -28,7 +29,6 @@
 
   enterShell = ''
     bun install
-    pip install -r requirements.txt -q
   '';
 
   # These tests should match the CI workflows
