@@ -4,14 +4,14 @@ Built on [nix](https://nixos.org/) and [devenv](https://devenv.sh/), this repo h
 
 * [Foundry](https://www.getfoundry.sh/) - duh
 * [Soldeer](https://soldeer.xyz/) - package management
-* [Solhint](https://github.com/protofire/solhint) - linter (via `bun solhint`)
+* [Solhint](https://github.com/protofire/solhint) - linter
 * [Slither](https://github.com/crytic/slither) - static analysis
 * [Echidna](https://github.com/crytic/echidna) - fuzzer
 * [Aderyn](https://github.com/Cyfrin/aderyn) - more static analysis
 * [Halmos](https://github.com/a16z/halmos) - symbolic testing
 * [Vertigo](https://github.com/RareSkills/vertigo-rs) - mutation testing
 
-# Testing
+# How to Use...
 
 ### Unit Tests
 ```bash
@@ -20,7 +20,7 @@ forge test
 
 ### Aderyn
 ```bash
-bun aderyn
+aderyn
 ```
 
 ### Slither
@@ -35,10 +35,15 @@ solhint 'src/**/*.sol'
 
 ### Echidna
 ```bash
-echidna test/echidna/PredictionMarket.echidna.sol --contract PredictionMarketFuzz --config echidna.yaml
+echidna test/echidna/PredictionMarket.echidna.t.sol --contract PredictionMarketFuzz --config echidna.yaml
 ```
 
 ### Halmos
 ```bash
 FOUNDRY_PROFILE=halmos halmos
+```
+
+### Vertigo
+```bash
+vertigo run --src-dir src
 ```

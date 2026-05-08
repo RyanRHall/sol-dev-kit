@@ -26,19 +26,19 @@ contract PredictionMarketFuzz is BaseFuzz {
         MARKET_ID = MARKET.createMarket(ORACLE);
         hevm.stopPrank();
 
-        TOKEN.mint(actors[0], 1000 ether);
-        TOKEN.mint(actors[1], 1000 ether);
-        TOKEN.mint(actors[2], 1000 ether);
+        TOKEN.mint(users[0], 1000 ether);
+        TOKEN.mint(users[1], 1000 ether);
+        TOKEN.mint(users[2], 1000 ether);
 
-        hevm.prank(actors[0]);
+        hevm.prank(users[0]);
         TOKEN.approve(address(MARKET), type(uint256).max);
-        hevm.prank(actors[1]);
+        hevm.prank(users[1]);
         TOKEN.approve(address(MARKET), type(uint256).max);
-        hevm.prank(actors[2]);
+        hevm.prank(users[2]);
         TOKEN.approve(address(MARKET), type(uint256).max);
     }
 
-    function deposit(uint16 amount) public useRandomActor {
+    function deposit(uint16 amount) public prankRandomUser {
         MARKET.deposit(MARKET_ID, amount);
     }
 
@@ -50,19 +50,19 @@ contract PredictionMarketFuzz is BaseFuzz {
         hevm.stopPrank();
     }
 
-    function redeem(uint16 amount) public useRandomActor {
+    function redeem(uint16 amount) public prankRandomUser {
         MARKET.redeem(MARKET_ID, amount);
     }
 
-    function claim() public useRandomActor {
+    function claim() public prankRandomUser {
         MARKET.claim(MARKET_ID);
     }
 
-    function transfer(uint256 receiverSeed, uint16 amount, bool isYes) public useRandomActor {
+    function transfer(uint256 receiverSeed, uint16 amount, bool isYes) public prankRandomUser {
         PredictionMarket.Market memory market = MARKET.getMarket(MARKET_ID);
 
         uint256 tokenID = isYes ? market.yesID : market.noID;
-        address receiver = actors[receiverSeed % actors.length];
+        address receiver = users[receiverSeed % users.length];
 
         MARKET.safeTransferFrom(msg.sender, receiver, tokenID, amount, "");
     }
@@ -77,19 +77,19 @@ contract PredictionMarketFuzz is BaseFuzz {
     }
 
     function echidna_USDC_supply_is_consistent() public view returns (bool) {
-        return TOKEN.balanceOf(actors[0]) + TOKEN.balanceOf(actors[1]) + TOKEN.balanceOf(actors[2])
+        return TOKEN.balanceOf(users[0]) + TOKEN.balanceOf(users[1]) + TOKEN.balanceOf(users[2])
                 + TOKEN.balanceOf(address(MARKET)) == TOKEN.totalSupply();
     }
 
     function echidna_collateral_and_position_supplies_are_consistent() public view returns (bool) {
         PredictionMarket.Market memory market = MARKET.getMarket(MARKET_ID);
 
-        uint256 yesSupply = MARKET.balanceOf(actors[0], market.yesID) + MARKET.balanceOf(actors[1], market.yesID)
-            + MARKET.balanceOf(actors[2], market.yesID);
-        uint256 noSupply = MARKET.balanceOf(actors[0], market.noID) + MARKET.balanceOf(actors[1], market.noID)
-            + MARKET.balanceOf(actors[2], market.noID);
-        uint256 winningSupply = MARKET.balanceOf(actors[0], market.winningID)
-            + MARKET.balanceOf(actors[1], market.winningID) + MARKET.balanceOf(actors[2], market.winningID);
+        uint256 yesSupply = MARKET.balanceOf(users[0], market.yesID) + MARKET.balanceOf(users[1], market.yesID)
+            + MARKET.balanceOf(users[2], market.yesID);
+        uint256 noSupply = MARKET.balanceOf(users[0], market.noID) + MARKET.balanceOf(users[1], market.noID)
+            + MARKET.balanceOf(users[2], market.noID);
+        uint256 winningSupply = MARKET.balanceOf(users[0], market.winningID)
+            + MARKET.balanceOf(users[1], market.winningID) + MARKET.balanceOf(users[2], market.winningID);
 
         if (market.winningID == 0) {
             // before resolving, the supply of all tokens is 2X the collaterall
