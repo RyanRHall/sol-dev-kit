@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     defaults:
       run:
         shell: devenv shell bash -- -e {0}
@@ -30,4 +31,57 @@ jobs:
         run: forge soldeer install
 
       - name: Run Slither
-        run: slither . --fail-medium
+        id: slither
+        run: |
+          slither . --fail-medium 2>&1 | tee slither-output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('slither-output.txt', 'utf8');
+            const passed = '${{ steps.slither.outputs.exit_code }}' === '0';
+            const icon = passed ? '✅' : '⚠️';
+            const body = [
+              `### ${icon} Slither Analysis`,
+              '',
+              '<details>',
+              '<summary>Click to expand full output</summary>',
+              '',
+              '```',
+              output,
+              '```',
+              '',
+              '</details>',
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Slither Analysis')
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Fail on findings
+        if: steps.slither.outputs.exit_code != '0'
+        run: exit 1
