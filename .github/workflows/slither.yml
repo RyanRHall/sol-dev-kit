@@ -32,56 +32,30 @@ jobs:
 
       - name: Run Slither
         id: slither
-        run: |
-          slither . --fail-medium 2>&1 | tee slither-output.txt
-          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
         continue-on-error: true
+        run: slither . --fail-medium 2>&1 | tee slither-output.txt
 
-      - name: Comment on PR
-        uses: actions/github-script@v7
+      - name: Wrap output
+        shell: bash
+        run: |
+          {
+            echo "### ${{ steps.slither.outcome == 'success' && '✅' || '⚠️' }} Slither Analysis"
+            echo ""
+            echo "<details>"
+            echo "<summary>Click to expand full output</summary>"
+            echo ""
+            echo '```'
+            cat slither-output.txt
+            echo '```'
+            echo ""
+            echo "</details>"
+          } > slither-comment.md
+
+      - name: Comment PR
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
-          script: |
-            const fs = require('fs');
-            const output = fs.readFileSync('slither-output.txt', 'utf8');
-            const passed = '${{ steps.slither.outputs.exit_code }}' === '0';
-            const icon = passed ? '✅' : '⚠️';
-            const body = [
-              `### ${icon} Slither Analysis`,
-              '',
-              '<details>',
-              '<summary>Click to expand full output</summary>',
-              '',
-              '```',
-              output,
-              '```',
-              '',
-              '</details>',
-            ].join('\n');
-
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const existing = comments.find(c =>
-              c.user.type === 'Bot' && c.body.includes('Slither Analysis')
-            );
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
-              });
-            }
+          path: slither-comment.md
 
       - name: Fail on findings
-        if: steps.slither.outputs.exit_code != '0'
+        if: steps.slither.outcome == 'failure'
         run: exit 1
