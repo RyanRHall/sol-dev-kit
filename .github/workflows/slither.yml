@@ -27,9 +27,6 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Install dependencies
-        run: forge soldeer install
-
       - name: Run Slither
         id: slither
         continue-on-error: true
@@ -37,19 +34,7 @@ jobs:
 
       - name: Wrap output
         shell: bash
-        run: |
-          {
-            echo "### ${{ steps.slither.outcome == 'success' && '✅' || '⚠️' }} Slither Analysis"
-            echo ""
-            echo "<details>"
-            echo "<summary>Click to expand full output</summary>"
-            echo ""
-            echo '```'
-            cat slither-output.txt
-            echo '```'
-            echo ""
-            echo "</details>"
-          } > slither-comment.md
+        run: .github/scripts/make-pr-comment.sh "${{ steps.slither.outcome }}" slither-output.txt slither-comment.md
 
       - name: Comment PR
         uses: marocchino/sticky-pull-request-comment@v3
