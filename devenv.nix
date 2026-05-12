@@ -16,6 +16,7 @@
   languages.javascript.bun.install.enable = true;
 
   languages.python.enable = true;
+  languages.python.uv.enable = true;
+  languages.python.uv.sync.enable = true;
   languages.python.venv.enable = true;
-  languages.python.venv.requirements = ./requirements.txt;
 }

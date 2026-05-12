@@ -1,2 +1,0 @@
-halmos
-eth-vertigo @ git+https://github.com/RareSkills/vertigo-rs.git
