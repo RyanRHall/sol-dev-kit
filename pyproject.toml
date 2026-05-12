@@ -1,0 +1,6 @@
+[project]
+name = "sol-dev-kit"
+dependencies = [
+    "halmos",
+    "eth-vertigo @ git+https://github.com/RareSkills/vertigo-rs.git",
+]
