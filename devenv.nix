@@ -20,8 +20,8 @@
   languages.python.uv.sync.enable = true;
   languages.python.venv.enable = true;
 
-  enterShell = ''
-    forge soldeer install
-  '';
-
+  tasks."devenv:solidity:soldeer" = {
+    exec = "forge soldeer install";
+    before = [ "devenv:enterShell" ];
+  };
 }
