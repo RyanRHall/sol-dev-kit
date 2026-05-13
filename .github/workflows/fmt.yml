@@ -26,8 +26,5 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Install dependencies
-        run: forge soldeer install
-
       - name: Run Forge fmt
         run: forge fmt --check

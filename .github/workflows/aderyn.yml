@@ -24,8 +24,8 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Install dependencies
-        run: forge soldeer install
+      - name: Activate devenv
+        run: forge --version
 
       - name: Aderyn Check
         uses: Cyfrin/aderyn-ci@v0

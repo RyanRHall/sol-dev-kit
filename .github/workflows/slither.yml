@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     defaults:
       run:
         shell: devenv shell bash -- -e {0}
@@ -26,8 +27,20 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Install dependencies
-        run: forge soldeer install
-
       - name: Run Slither
-        run: slither . --fail-medium
+        id: slither
+        continue-on-error: true
+        run: slither . --fail-medium 2>&1 | tee slither-output.txt
+
+      - name: Wrap output
+        shell: bash
+        run: .github/scripts/make-pr-comment.sh "${{ steps.slither.outcome }}" slither-output.txt slither-comment.md
+
+      - name: Comment PR
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          path: slither-comment.md
+
+      - name: Fail on findings
+        if: steps.slither.outcome == 'failure'
+        run: exit 1

@@ -19,4 +19,9 @@
   languages.python.uv.enable = true;
   languages.python.uv.sync.enable = true;
   languages.python.venv.enable = true;
+
+  tasks."devenv:solidity:soldeer" = {
+    exec = "forge soldeer install";
+    before = [ "devenv:enterShell" ];
+  };
 }

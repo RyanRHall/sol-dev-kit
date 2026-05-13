@@ -26,9 +26,6 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Install dependencies
-        run: forge soldeer install
-
       - name: Install lcov
         shell: bash
         run: sudo apt-get install -y lcov

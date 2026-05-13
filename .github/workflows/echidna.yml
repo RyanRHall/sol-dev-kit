@@ -26,9 +26,6 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Install dependencies
-        run: forge soldeer install
-
       - name: Compile Contracts
         run: forge compile
 
