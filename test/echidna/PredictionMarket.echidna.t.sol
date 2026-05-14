@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {PredictionMarket} from "@src/PredictionMarket.sol";
 
-import {BaseFuzz} from "@test/echidna/BaseFuzz.echidna.sol";
+import {BaseFuzz} from "@test/echidna/BaseFuzz.echidna.t.sol";
 import {TestERC20} from "@test/mocks/TestERC20.sol";
 
 contract PredictionMarketFuzz is BaseFuzz {
