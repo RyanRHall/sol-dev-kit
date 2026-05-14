@@ -20,7 +20,7 @@ forge test
 
 ### Aderyn
 ```bash
-aderyn
+aderyn-check
 ```
 
 ### Slither

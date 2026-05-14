@@ -34,11 +34,12 @@ jobs:
 
       - name: Wrap output
         shell: bash
-        run: .github/scripts/make-pr-comment.sh "${{ steps.slither.outcome }}" slither-output.txt slither-comment.md
+        run: .github/scripts/make-pr-comment.sh "${{ steps.slither.outcome }}" "Slither Analysis" slither-output.txt slither-comment.md
 
       - name: Comment PR
         uses: marocchino/sticky-pull-request-comment@v3
         with:
+          header: slither
           path: slither-comment.md
 
       - name: Fail on findings

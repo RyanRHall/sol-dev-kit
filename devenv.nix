@@ -6,6 +6,7 @@
     pkgs.lintspec
     pkgs.slither-analyzer
     pkgs.echidna
+    pkgs.glow
   ];
 
   languages.solidity.enable = true;
@@ -24,4 +25,6 @@
     exec = "forge soldeer install";
     before = [ "devenv:enterShell" ];
   };
+
+  scripts.aderyn-check.exec = "aderyn --stdout | glow";
 }

@@ -6,6 +6,9 @@ jobs:
   check:
     name: Aderyn
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     defaults:
       run:
         shell: devenv shell bash -- -e {0}
@@ -24,10 +27,24 @@ jobs:
         shell: bash
         run: nix profile add nixpkgs#devenv
 
-      - name: Activate devenv
-        run: forge --version
+      # Generate report, does not fail the job
+      - name: Aderyn Report
+        run: aderyn --output report.md
 
+      # Does not generate a report, but fails the job if high severity issues are found
       - name: Aderyn Check
         uses: Cyfrin/aderyn-ci@v0
+        id: aderyn
+        continue-on-error: true
         with:
           fail-on: high
+
+      - name: Wrap output
+        shell: bash
+        run: .github/scripts/make-pr-comment.sh "${{ steps.aderyn.outcome }}" "Aderyn Analysis" report.md aderyn-comment.md
+
+      - name: Comment PR
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: aderyn
+          path: aderyn-comment.md
