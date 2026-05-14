@@ -2,20 +2,21 @@
 set -euo pipefail
 
 status=$1
-input=$2
-output=$3
+header=$2
+input=$3
+output=$4
 
 icon=$( [ "$status" = "success" ] && echo "✅" || echo "⚠️" )
 
-cat <<EOF > "$output"
-### ${icon} Slither Analysis
-
-<details>
-<summary>Click to expand</summary>
-
-\`\`\`
-$(cat "$input")
-\`\`\`
-
-</details>
-EOF
+{
+  echo "### ${icon} ${header}"
+  echo ""
+  echo "<details>"
+  echo "<summary>Click to expand</summary>"
+  echo ""
+  [[ "$input" != *.md ]] && echo '```'
+  cat "$input"
+  [[ "$input" != *.md ]] && echo '```'
+  echo ""
+  echo "</details>"
+} > "$output"
